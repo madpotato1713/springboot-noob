@@ -20,7 +20,7 @@ script: "./gradlew clean build"
 before_deploy:
   - zip -r springboot-noob *
   - mkdir -p deploy
-  - mv springboot-noob.zip depoly/springboot-noob.zip
+  - mv springboot-noob.zip deploy/springboot-noob.zip
 
 deploy:
   - provider: s3
