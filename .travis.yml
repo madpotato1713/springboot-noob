@@ -12,9 +12,6 @@ cache:
     - '$HOME/.m2/repository'
     - '$HOME/.gradle'
 
-before_install:
-  - chmod +x gradlew
-
 script: "./gradlew clean build"
 
 before_deploy:
@@ -34,8 +31,8 @@ deploy:
     region: ap-northeast-2
     skip_cleanup: true
     acl: private # zip 파일 접근을 private으로
-    local_dir: deploy # before_deploy에서 생선한 디렉토리
-    wait-until-deploy: true
+    local_dir: deploy # before_deploy에서 생성한 디렉토리
+    wait-until-deployed: true
 
   - provider: codedeploy
     access_key_id: $AWS_ACCESS_KEY # Travis repo settings에 설정된 값
@@ -44,11 +41,11 @@ deploy:
     key: springboot-noob.zip # 빌드 파일을 압축해서 전달
     bundle_type: zip # 압축 확장자
     application: springboot-noob # 웹 콘솔에서 등록한 CodeDeploy 애플리케이션
-    deployment_group: springboot-noob-group #웹 콘솔에서 등록한 CodeDeploy 배포 그룹
+    deployment_group: springboot-noob-group # 웹 콘솔에서 등록한 CodeDeploy 배포 그룹
     region: ap-northeast-2
-    wait-until-deploy: true
+    wait-until-deployed: true
 
-# CI 실행 완료 시 메일로 알람
+# CI 실행 완료시 메일로 알람
 notifications:
   email:
     recipients:
