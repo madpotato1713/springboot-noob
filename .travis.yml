@@ -17,8 +17,26 @@ before_install:
 
 script: "./gradlew clean build"
 
+before_deploy:
+  - zip -r springboot-noob *
+  - mkdir -p deploy
+  - mv springboot-noob.zip depoly/springboot-noob.zip
+
+deploy:
+  - provider: s3
+    access_key_id: $AWS_ACCESS_KEY # Travis repo settings에 설정된 값
+    secret_access_key: $AWS_SECRET_KEY # Travis repo settings에 설정된 값
+    bucket: chungil-build # S3 버킷
+    region: ap-northeast-2
+    skip_cleanup: true
+    acl: private # zip 파일 접근을 private으로
+    local_dir: deploy # before_deploy에서 생선한 디렉토리
+    wait-until-deploy: true
+
 # CI 실행 완료 시 메일로 알람
 notifications:
   email:
     recipients:
       - madpotato1713@gmail.com
+
+
