@@ -18,9 +18,9 @@ before_install:
 script: "./gradlew clean build"
 
 before_deploy:
-  - zip -r springboot-noob *
+  - zip -r freelec-springboot2-webvservice *
   - mkdir -p deploy
-  - mv springboot-noob.zip depoly/springboot-noob.zip
+  - mv freelec-springboot2-webvservice.zip depoly/freelec-springboot2-webvservice.zip
 
 deploy:
   - provider: s3
